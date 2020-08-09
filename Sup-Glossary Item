@@ -1,0 +1,41 @@
+<script>
+  /* Found on https://allohopefoundation.org/providers/ */
+  jQuery(document).ready(function($) {
+  $('#ah-header-menu > li > a, #ah-footer-menu > li > a').each(function() { $('<span>/</span>').insertAfter($(this)); });
+
+  $('button, a.btn').each(function() {$(this).addClass('ah-button');});
+  /* Below code assigns each LI inside of the Providers Page References ol .list a unqiue value that we will use to compare it with the <sup>.text() amount, and then pipe in the $(".list li").text() to the <sup> ahref. */ 
+
+  //Grab each .list li and give it a unqiue ID based on its position relative to the originating <ol> tag
+  iList = 0;
+  content=[];
+  // starts array to contain hrefs
+  href=[];
+  $(".list li a").each(function() {
+    // start the counter at 1 to handle the first li item, and any future lis
+    iList ++;
+    href[iList] = $(this).attr('href');
+    $(this).attr('value',iList)
+    //store hrefs with the same index as the .list li position
+    // Wraps the li in a span with a unique ID we can use an an achor tag if we need it
+    $(this).wrap("<span id='glossary-item-" + iList + "'></span>");
+    content[iList]= $(this).text();
+  });
+
+  /* New Code */
+  // Store the .text() of the sup values to compare them to the .list li values
+  $("sup").each(function() {
+    /* Comma Removing Piece */
+
+    number = $(this).text().replace(/,/g, '', /, /g, '');
+    // Below is how to anchor link sups to the .list li items
+    //$(this).wrap("<a class='reference-tooltips font-weight-bold' title='"+ content[number] +"' target='_blank' href='#glossary-item-" + number + "' data-toggle='tooltip' data-title=''></a>");
+    // Below is how to link href to the same as the .list li items
+    $(this).wrap("<a class='reference-tooltips font-weight-bold ah-text-purple' title='"+ content[number] +"' target='_blank' href='"+ href[number] +"' data-toggle='tooltip' data-title=''></a>");
+  });
+
+  $(".reference-tooltips").tooltip();
+});
+
+
+</script>
