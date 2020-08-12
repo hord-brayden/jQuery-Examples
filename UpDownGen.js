@@ -8,14 +8,4 @@
         }
         document.getElementById('outputText').value = res;
       }
-
-      $("#inputText").keyup(function(event) {
-        if (event.keyCode === 13) {
-          generateUpDownText();
-        }
-      });
-
-      $("#inputText").onchange(function(event) {
-        generateUpDownText();
-      });
     </script>
